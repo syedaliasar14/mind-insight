@@ -19,28 +19,73 @@
 body {
   color: var(--foreground);
   background: linear-gradient(135deg, var(--background-start), var(--background-end));
-}
+} 
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;     /* Firefox */
   }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;             /* Chrome, Safari */
   }
+
   .bg-blue-fav1 {
     background-color: var(--background-start);
   }
+
   .bg-blue-fav2 {
     background-color: var(--background-end);
   }
+
   .gradient-text {
     background: linear-gradient(135deg, var(--background-start), var(--background-end));
     -webkit-background-clip: text;
     color: transparent;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+  }
+
+  .my-container {
+    max-width: 1200px;
+    padding: 0 1rem;
+
+    width: 100%;
+    max-width: 100%;
+    
+    @media (min-width: 640px) {
+      max-width: 640px;
+    }
+    
+    @media (min-width: 768px) {
+      max-width: 768px;
+    }
+    
+    @media (min-width: 1024px) {
+      max-width: 1024px;
+    }
+    
+    @media (min-width: 1200px) {
+      max-width: 1200px;
+    }
+  }
+
+  .account-button {
+    @apply
+      bg-gradient-to-br from-fav-blue1 to-fav-blue2
+      rounded-md text-white p-2 shadow
+  }
+
+  .account-input {
+    @apply
+      p-2 rounded-md shadow border border-gray-300
+      focus:outline-none focus:ring-2 focus:ring-fav-blue1 focus:ring-opacity-20
   }
 }

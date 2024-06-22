@@ -1,6 +1,7 @@
 "use client"
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 interface User {
   name: string;
@@ -9,18 +10,21 @@ interface User {
 }
 
 export default function Login() {
-  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const inputs = [
+    { name: 'username', label: 'Username', type: 'text' },
+    { name: 'password', label: 'Password', type: 'password' },
+  ]
+  const router = useRouter();
   
-  const handleSubmit = async (event: any) => {
+  const handleLogin = async (event: any) => {
     event.preventDefault();
     const username = event.target.username.value;
     const password = event.target.password.value;
     //await signIn('credentials', { username, password });
 
     const user: User = {name: username, email: "a@b.com", password: password};
-
-    addUser(user)
+    router.push('/chat')
   };
 
   const addUser = async (user: User) => {
@@ -41,24 +45,21 @@ export default function Login() {
   }
 
   return (
-    <div className='flex h-screen flex-col items-center justify-center text-white'>
-      <form 
-        className='flex flex-col gap-4'
-        onSubmit={handleSubmit}>
-        <label className='text-gray-800'>
-          Email: <input name="email" type="text" />
-        </label>
-        <label className='text-gray-800'>
-          Name: <input name="name" type="text" />
-        </label>
-        <label className='text-gray-800'>
-          Password: <input name="password" type="password" />
-        </label>
-        <label className='text-gray-800'>
-          Confirm Password: <input name="password" type="password" />
-        </label>
-        <button type="submit">Sign In</button>
+    <div className='flex flex-col max-w-[400px] content-fill items-center'>
+      <h2 className='text-3xl mb-4 gradient-text'>Login</h2>
+      <form className='flex flex-col gap-4 w-full items-center' onSubmit={handleLogin}>
+        {inputs.map(({ name, label, type }) => (
+          <div key={name} className='flex flex-col w-full'>
+            <label className='text-gray-600 mb-2' htmlFor={name}>{label}</label>
+            <input className='account-input' id={name} name={name} type={type} />
+          </div>
+        ))}
+        <button className='account-button w-full mt-4' type="submit">Login</button>
       </form>
+      <div>
+        {error && <p>Error: {error}</p>}
+      </div>
     </div>
+    
   );
 }
