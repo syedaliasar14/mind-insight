@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react';
-import { faCircleArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faCircleArrowUp, faBars, faBullhorn, faGear, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-/* import SpecModal from '../components/specmodal';
+import SpecModal from '../components/specmodal';
 import FeedbackModal from '../components/feedbackmodal';
-import Menu from '../components/menu'; */
+import Menu from '../components/menu';
 import Link from 'next/link';
 import { marked } from 'marked';
 
@@ -128,11 +128,11 @@ export default function Home() {
         {!messagesEmpty() && 
           <Link href={'/'}><div className='text-xl sm:text-2xl'>MindInsight</div></Link>
         }
-        {/* <Menu 
+        <Menu 
           onNewSession={resetMessages}
           onOpenChatSettings={() => setIsSpecModalOpen(true)}
           onOpenFeedback={() => setIsFeedbackModalOpen(true)}
-        /> */}
+        />
       </div>
       {messagesEmpty() && 
         <div className={`text-5xl sm:text-7xl pt-7 sm:py-3 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
@@ -175,7 +175,7 @@ export default function Home() {
           <FontAwesomeIcon className="shadow-xl" size="2xl" icon={faCircleArrowUp} />
         </button>
       </div>
-      {/* <SpecModal 
+      <SpecModal 
         isOpen={isSpecModalOpen} 
         onClose={ () => setIsSpecModalOpen(false) } 
         onSelectSpecialization={ (s) => handleSelectSpecialization(s)}
@@ -183,7 +183,7 @@ export default function Home() {
       <FeedbackModal 
         isOpen={isFeedbackModalOpen} 
         onClose={ () => setIsFeedbackModalOpen(false) } 
-      /> */}
+      />
     </main>
   );
 }
