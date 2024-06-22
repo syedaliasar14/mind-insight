@@ -23,24 +23,6 @@ export default function Login() {
     addUser(user)
   };
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('/api/users', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (!response.ok) {
-        throw new Error('Error in calling the users API');
-      }
-
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   const addUser = async (user: User) => {
     const { name, email, password } = user;
     try {
@@ -64,26 +46,19 @@ export default function Login() {
         className='flex flex-col gap-4'
         onSubmit={handleSubmit}>
         <label className='text-gray-800'>
-          Username: <input name="username" type="text" />
+          Email: <input name="email" type="text" />
+        </label>
+        <label className='text-gray-800'>
+          Name: <input name="name" type="text" />
         </label>
         <label className='text-gray-800'>
           Password: <input name="password" type="password" />
         </label>
+        <label className='text-gray-800'>
+          Confirm Password: <input name="password" type="password" />
+        </label>
         <button type="submit">Sign In</button>
       </form>
-      <div>
-        {error && <p>Error: {error}</p>}
-        {users.length > 0 ? (
-          <ul>
-            {users.map(user => (
-              <li key={user.email}>{user.name}: {user.email}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No users found</p>
-        )}
-      </div>
-      <button onClick={fetchUsers}>Fetch Users</button>
     </div>
   );
 }
