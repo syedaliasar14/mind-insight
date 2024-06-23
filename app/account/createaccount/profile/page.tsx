@@ -15,8 +15,8 @@ export default function CreateProfile() {
   };
 
   return (
-    <div className='flex flex-col max-w-[400px] content-fill items-center'>
-      <h2 className='text-3xl mb-4 gradient-text'>Profile</h2>
+    <div className='flex flex-col w-[300px] content-fill items-center'>
+      <h2 className='text-3xl mb-6 gradient-text'>Profile</h2>
       <form className='flex flex-col gap-4 w-full items-center' onSubmit={handleSubmit}>
         {inputs.map(({ name, label, type }) => (
           <div key={name} className='flex flex-col w-full'>

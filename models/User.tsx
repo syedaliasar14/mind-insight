@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
+const { Schema, models, model } = mongoose;
 
 const userSchema = new Schema({
   email: {
@@ -36,5 +36,5 @@ const userSchema = new Schema({
   },
 });
 
-const User = model('User', userSchema);
+const User = models && models.User ? models.User : model('User', userSchema);
 export default User;
