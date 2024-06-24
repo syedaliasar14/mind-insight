@@ -18,7 +18,7 @@ const Messages = ({ messages, messagesEndRef } : MessagesProps) => {
   };
 
   return (
-    <>
+    <div className='w-full h-full flex flex-col flex-grow overflow-y-auto'>
       {messages.map((message, index) => (
         message.role != 'system' && (
           <div
@@ -30,7 +30,7 @@ const Messages = ({ messages, messagesEndRef } : MessagesProps) => {
           </div>
         )
       ))}
-    </>
+    </div>
   );
 }
 

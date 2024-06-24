@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { models } from 'mongoose';
 const { Schema, model } = mongoose;
 
 const sessionSchema = new Schema({
@@ -23,5 +23,5 @@ const sessionSchema = new Schema({
   }
 });
 
-const Session = model('Session', sessionSchema);
+const Session = models && models.Session ? models.User : model('Session', sessionSchema);
 export default Session;

@@ -5,7 +5,7 @@ import User from '@/models/User';
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const users = await User.find;
+    const users = await (new User()).find({}).exec();
     return NextResponse.json(users, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Error fetching users' }, { status: 500 });

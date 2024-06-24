@@ -1,7 +1,6 @@
 "use client"
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-import User from '@/models/User';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
@@ -37,8 +36,6 @@ export default function CreateAccount() {
       setLoading(false);
       return;
     }
-
-    const user = new User({ name, email, password });
 
     try {
       const response = await fetch('/api/users', {
@@ -110,7 +107,7 @@ export default function CreateAccount() {
             </div>
           ))}
           {error && <p className='text-red-500 text-sm'>{error}</p>}
-          <button className={`account-button w-full ${loading ? 'opacity-50' : 'cursor-not-allowed'} flex justify-center`}
+          <button className={`account-button w-full ${loading ? 'opacity-50' : ''} flex justify-center`}
             type="submit" ref={buttonRef} disabled={loading}
             >
               {loading ?

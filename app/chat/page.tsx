@@ -1,5 +1,4 @@
 "use client"
-
 import { useEffect, useRef, useState } from 'react';
 import { faCircleArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +8,7 @@ import Menu from '../components/menu';
 import Link from 'next/link';
 import ChatHeader from '../components/chatheader';
 import Messages from '../components/messages';
+//import { useSession } from "next-auth/react"
 
 export default function Home() {
   type Message = {
@@ -28,6 +28,7 @@ export default function Home() {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isSpecModalOpen, setIsSpecModalOpen] = useState(false);
   const textareaRef = useRef<HTMLInputElement>(null);
+  //const { data: session } = useSession()
 
   const handleSend = async () => {
     if (isSendDisabled || isWaitingResponse || !input) return;
@@ -133,7 +134,7 @@ export default function Home() {
         <div className="flex flex-col flex-grow overflow-y-auto w-full no-scrollbar">
           <div className='mt-auto'></div>
           {messagesEmpty() ? (
-            <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
+              <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
           ) : (
             <Messages messages={messages} messagesEndRef={messagesEndRef} />
           )}
