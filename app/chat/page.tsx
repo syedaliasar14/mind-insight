@@ -4,8 +4,6 @@ import { faCircleArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SpecModal from '../components/specmodal';
 import FeedbackModal from '../components/feedbackmodal';
-import Menu from '../components/menu';
-import Link from 'next/link';
 import ChatHeader from '../components/chatheader';
 import Messages from '../components/messages';
 //import { useSession } from "next-auth/react"
@@ -21,7 +19,6 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([{ role: "system", content: defaultPrompt, isVisible: false }]);
   const [specialization, setSpecialization] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [isSendDisabled, setIsSendDisabled] = useState(!input);
   const [isWaitingResponse, setIsWaitingResponse] = useState(false);
@@ -80,10 +77,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  useEffect(() => {
     setTimeout(() => {
       setIsTitleVisible(true);
     }, 500);
@@ -127,16 +120,15 @@ export default function Home() {
         setIsSpecModalOpen={() => setIsSpecModalOpen} 
         setIsFeedbackModalOpen={() => setIsFeedbackModalOpen}
       />
-      <div className='flex flex-col items-center overflow-y-auto sm:max-w-2xl w-full p-7 pb-10'>
+      <div className='flex flex-col items-center overflow-y-auto h-full sm:max-w-2xl w-full p-7 pb-10'>
         {messagesEmpty() && 
           <div className={`text-5xl sm:text-7xl pt-20 sm:py-3 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
         }
-        <div className="flex flex-col flex-grow overflow-y-auto w-full no-scrollbar">
-          <div className='mt-auto'></div>
+        <div className="flex flex-col flex-grow w-full h-[100%] overflow-y-auto no-scrollbar">
           {messagesEmpty() ? (
               <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
           ) : (
-            <Messages messages={messages} messagesEndRef={messagesEndRef} />
+            <Messages messages={messages} />
           )}
         </div>
         <div className="flex flex-row w-full mt-2">

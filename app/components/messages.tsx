@@ -1,9 +1,8 @@
 import { marked } from 'marked';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface MessagesProps {
   messages: Message[];
-  messagesEndRef: any;
 };
 
 type Message = {
@@ -12,13 +11,19 @@ type Message = {
   isVisible: boolean;
 };
 
-const Messages = ({ messages, messagesEndRef } : MessagesProps) => {
+const Messages = ({ messages } : MessagesProps) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   const renderMessageContent = (content: any) => {
     return { __html: marked(content) };
   };
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
-    <div className='w-full h-full flex flex-col flex-grow overflow-y-auto'>
+    <div className='w-full h-full flex flex-col flex-grow overflow-y-auto no-scrollbar justify-end'>
       {messages.map((message, index) => (
         message.role != 'system' && (
           <div
