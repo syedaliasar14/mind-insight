@@ -5,9 +5,9 @@ export default function AccountLayout({ children }: Readonly<{
 }>) {
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-full md:w-7/12 flex flex-col min-h-screen bg-white items-center p-8 flex-grow">{children}</div>
-      <div className="w-[0px] md:w-5/12 min-h-screen flex items-end">
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <div className="w-full md:w-7/12 flex flex-col bg-white items-center p-8 flex-grow">{children}</div>
+      <div className="w-full md:w-5/12 min-h-auto flex items-end">
         <Footer/>
       </div>
     </div>

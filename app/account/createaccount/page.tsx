@@ -30,30 +30,9 @@ export default function CreateAccount() {
     const password = event.target.password.value;
     const confirmPassword = event.target.confirmPassword.value;
     
-    if (!name || !email || !password || !confirmPassword) {
-      setError('All fields are required');
-      setPasswordMatches(false);
-      setLoading(false);
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Invalid email format');
-      setPasswordMatches(false);
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
-      setPasswordMatches(false);
-      setLoading(false);
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
+    const validationError = validateInputs(name, email, password, confirmPassword);
+    if (validationError) {
+      setError(validationError);
       setPasswordMatches(false);
       setLoading(false);
       return;
@@ -87,6 +66,27 @@ export default function CreateAccount() {
       return;
     }
   };
+
+  function validateInputs(name: string, email: string, password: string, confirmPassword: string) {
+    if (!name || !email || !password || !confirmPassword) {
+      return 'All fields are required';
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return 'Invalid email format';
+    }
+  
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+  
+    if (password !== confirmPassword) {
+      return 'Passwords do not match';
+    }
+  
+    return null;
+  }
 
   useEffect(() => {
     if (loading) {
@@ -124,5 +124,3 @@ export default function CreateAccount() {
     </div>
   );
 }
-
-

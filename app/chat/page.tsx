@@ -1,13 +1,14 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react';
-import { faCircleArrowUp, faBars, faBullhorn, faGear, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCircleArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SpecModal from '../components/specmodal';
 import FeedbackModal from '../components/feedbackmodal';
 import Menu from '../components/menu';
 import Link from 'next/link';
-import { marked } from 'marked';
+import ChatHeader from '../components/chatheader';
+import Messages from '../components/messages';
 
 export default function Home() {
   type Message = {
@@ -118,62 +119,45 @@ export default function Home() {
     }
   }, [input]);
 
-  const renderMessageContent = (content: any) => {
-    return { __html: marked(content) };
-  };
-
   return (
-    <main className="flex h-screen text-white flex-col items-center mx-auto p-7 pb-10 container sm:max-w-2xl">
-      <div className={`flex flex-row w-full ${!messagesEmpty() ? 'justify-between' : 'justify-end'}`}>
-        {!messagesEmpty() && 
-          <Link href={'/'}><div className='text-xl sm:text-2xl'>MindInsight</div></Link>
+    <main className="flex h-screen text-white flex-col items-center w-full">
+      <ChatHeader 
+        resetMessages={() => resetMessages()} 
+        setIsSpecModalOpen={() => setIsSpecModalOpen} 
+        setIsFeedbackModalOpen={() => setIsFeedbackModalOpen}
+      />
+      <div className='flex flex-col items-center overflow-y-auto sm:max-w-2xl w-full p-7 pb-10'>
+        {messagesEmpty() && 
+          <div className={`text-5xl sm:text-7xl pt-20 sm:py-3 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
         }
-        <Menu 
-          onNewSession={resetMessages}
-          onOpenChatSettings={() => setIsSpecModalOpen(true)}
-          onOpenFeedback={() => setIsFeedbackModalOpen(true)}
-        />
-      </div>
-      {messagesEmpty() && 
-        <div className={`text-5xl sm:text-7xl pt-7 sm:py-3 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
-      }
-      <div className="flex flex-col flex-grow overflow-y-auto w-full no-scrollbar">
-        <div className='mt-auto'></div>
-        {messagesEmpty() ? (
-          <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
-        ) : (
-          messages.map((message, index) => (
-            message.role != 'system' && (
-              <div
-                key={index}
-                className= {`${message.role === 'user' ? 'self-end text-right ml-4' : 'self-start text-left mr-4'} py-1 px-3 my-1 bg-white bg-opacity-10 rounded-2xl max-w-md ${message.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'} transition-all transition-transform duration-[2000ms] delay-100`}
-                ref={index === messages.length - 1 ? messagesEndRef : null}
-                >
-                <div dangerouslySetInnerHTML={renderMessageContent(message.content)} />
-              </div>
-            )
-          ))
-        )}
-      </div>
-      <div className="flex flex-row w-full mt-2">
-        <input
-          className="w-full rounded-3xl focus:outline-none text-gray-700 py-1 px-4 shadow-xl max-h-[300px] resize-none no-scrollbar"
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            setIsSendDisabled(e.target.value === '');
-          }}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          ref={textareaRef}
-          /* rows={1} */
-        />
-        <button 
-          className={`pl-3 ${isSendDisabled || isWaitingResponse ? 'opacity-50' : 'opactiy-100'} focus:outline-none`}
-          onClick={handleSend}
-          disabled={isSendDisabled || isWaitingResponse}
-        >
-          <FontAwesomeIcon className="shadow-xl" size="2xl" icon={faCircleArrowUp} />
-        </button>
+        <div className="flex flex-col flex-grow overflow-y-auto w-full no-scrollbar">
+          <div className='mt-auto'></div>
+          {messagesEmpty() ? (
+            <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
+          ) : (
+            <Messages messages={messages} messagesEndRef={messagesEndRef} />
+          )}
+        </div>
+        <div className="flex flex-row w-full mt-2">
+          <input
+            className="w-full rounded-3xl focus:outline-none text-gray-700 py-1 px-4 shadow-xl max-h-[300px] resize-none no-scrollbar"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              setIsSendDisabled(e.target.value === '');
+            }}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            ref={textareaRef}
+            /* rows={1} */
+          />
+          <button 
+            className={`pl-3 ${isSendDisabled || isWaitingResponse ? 'opacity-50' : 'opactiy-100'} focus:outline-none`}
+            onClick={handleSend}
+            disabled={isSendDisabled || isWaitingResponse}
+          >
+            <FontAwesomeIcon className="shadow-xl" size="2xl" icon={faCircleArrowUp} />
+          </button>
+        </div>
       </div>
       <SpecModal 
         isOpen={isSpecModalOpen} 
