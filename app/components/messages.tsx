@@ -24,12 +24,14 @@ const Messages = ({ messages } : MessagesProps) => {
   }, [messages]);
 
   return (
-    <div className='w-full h-full flex flex-col flex-grow overflow-y-auto no-scrollbar justify-end'>
+    <div className='w-full h-auto flex flex-col flex-grow overflow-y-auto no-scrollbar'>
+      <div className='mt-auto pt-2'></div> {/* Workaround for justify-end and overflow issue */}
       {messages.map((message, index) => (
         message.role != 'system' && (
           <div
             key={index}
-            className= {`${message.role === 'user' ? 'self-end text-right ml-4' : 'self-start text-left mr-4'} py-1 px-3 my-1 bg-white bg-opacity-10 rounded-2xl max-w-md`}
+            className= {`${message.role === 'user' ? 'self-end text-right ml-4' : 'self-start text-left mr-4'}
+              py-1 px-3 my-1 border border-white border-opacity-50 shadow-lg rounded-2xl max-w-md`}
             ref={index === messages.length - 1 ? messagesEndRef : null}
             >
             <div dangerouslySetInnerHTML={renderMessageContent(message.content)} />

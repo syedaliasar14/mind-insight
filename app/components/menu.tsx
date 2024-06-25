@@ -8,15 +8,15 @@ const Menu = ({ onNewSession, onOpenChatSettings, onOpenFeedback }: any) => {
   const menuItems = [
     {
       label: 'New Session',
-      onClick: onNewSession
+      onClick: onNewSession()
     },
     {
       label: 'Select Specialization',
-      onClick: (onOpenChatSettings: any) => onOpenChatSettings()
+      onClick: onOpenChatSettings()
     },
     {
       label: 'Send Feedback',
-      onClick: (onOpenFeedback: any) => onOpenFeedback()
+      onClick: onOpenFeedback()
     },
     {
       label: 'Log out',
@@ -35,7 +35,7 @@ const Menu = ({ onNewSession, onOpenChatSettings, onOpenFeedback }: any) => {
         className='block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer transition-all duration-300'
         onClick={() => {
           toggleMenu();
-          item.onClick;
+          item.onClick();
         }}>
         {item.label}
       </div>

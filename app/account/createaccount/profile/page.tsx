@@ -17,7 +17,7 @@ export default function CreateProfile() {
 
   return (
     <div className='flex flex-col w-[300px] content-fill items-center'>
-      <h2 className='text-3xl mb-6 gradient-text'>Profile</h2>
+      <h2 className='text-3xl mb-6 gradient-text'>Your Profile</h2>
       <p className='text-gray-600 mb-6'>Tell <span className='gradient-text'>MindInsight</span> a little bit about yourself.</p>
       <form className='flex flex-col gap-4 w-full items-center' onSubmit={handleSubmit}>
         <div className='flex flex-col w-full'>

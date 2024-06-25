@@ -116,17 +116,17 @@ export default function Home() {
   return (
     <main className="flex h-screen text-white flex-col items-center w-full">
       <ChatHeader 
-        resetMessages={() => resetMessages()} 
+        resetMessages={() => resetMessages} 
         setIsSpecModalOpen={() => setIsSpecModalOpen} 
         setIsFeedbackModalOpen={() => setIsFeedbackModalOpen}
       />
-      <div className='flex flex-col items-center overflow-y-auto h-full sm:max-w-2xl w-full p-7 pb-10'>
+      <div className='flex flex-col items-center overflow-y-auto h-full sm:max-w-2xl w-full px-7 pb-10'>
         {messagesEmpty() && 
-          <div className={`text-5xl sm:text-7xl pt-20 sm:py-3 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
+          <div className={`text-5xl sm:text-7xl pt-20 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
         }
         <div className="flex flex-col flex-grow w-full h-[100%] overflow-y-auto no-scrollbar justify-end">
           {messagesEmpty() ? (
-              <div className={`font-light text-lg sm:text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
+              <div className={`font-light text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
           ) : (
             <Messages messages={messages} />
           )}
