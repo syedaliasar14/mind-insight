@@ -3,7 +3,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import connectToDatabase from '@/lib/mongoose';
 import User from '@/models/User';
 
-const handler = NextAuth({
+import { handlers } from '@/app/auth';
+export const { GET, POST } = handlers
+
+/* const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -42,4 +45,4 @@ const handler = NextAuth({
   },
 });
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }; */

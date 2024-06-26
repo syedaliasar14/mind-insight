@@ -22,13 +22,13 @@ export default function CreateProfile() {
       <form className='flex flex-col gap-4 w-full items-center' onSubmit={handleSubmit}>
         <div className='flex flex-col w-full'>
           <label className='text-gray-600 mb-2' htmlFor='dateOfBirth'>Birthday<span className='text-gray-400 ml-2'>(Optional)</span></label>
-          <input className='account-input' name='dateOfBirth' type='date' />
+          <input className='account-input uppercase' name='dateOfBirth' type='date' />
         </div><div className='flex flex-col w-full'>
           <label className='text-gray-600 mb-2' htmlFor='gender'>Gender<span className='text-gray-400 ml-2'>(Optional)</span></label>
           <input className='account-input' name='gender' type="text" />
         </div>
         <div className='flex flex-col w-full'>
-          <label className='text-gray-600 mb-2' htmlFor='otherInfo'>{'Any other info you\'d like MindInsight to know about you?'}<span className='text-gray-400 ml-2'>(Optional)</span></label>
+          <label className='text-gray-600 mb-2' htmlFor='otherInfo'>Any other info you&apos;d like <span className='gradient-text'>MindInsight</span> to know about you?<span className='text-gray-400 ml-2'>(Optional)</span></label>
           <textarea className='account-input' name='otherInfo' rows={4}/>
         </div>
         <button className='account-button w-full mt-4' type="submit">Complete Profile</button>

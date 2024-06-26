@@ -6,7 +6,6 @@ import SpecModal from '../components/specmodal';
 import FeedbackModal from '../components/feedbackmodal';
 import ChatHeader from '../components/chatheader';
 import Messages from '../components/messages';
-//import { useSession } from "next-auth/react"
 
 export default function Home() {
   type Message = {
@@ -25,7 +24,6 @@ export default function Home() {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isSpecModalOpen, setIsSpecModalOpen] = useState(false);
   const textareaRef = useRef<HTMLInputElement>(null);
-  //const { data: session } = useSession()
 
   const handleSend = async () => {
     if (isSendDisabled || isWaitingResponse || !input) return;
@@ -122,11 +120,13 @@ export default function Home() {
       />
       <div className='flex flex-col items-center overflow-y-auto h-full sm:max-w-2xl w-full px-7 pb-10'>
         {messagesEmpty() && 
-          <div className={`text-5xl sm:text-7xl pt-20 ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] cursor-default`}>MindInsight</div>
+          <div className={`text-5xl sm:text-7xl pt-20 cursor-default
+            ${isTitleVisible ? 'opacity-90 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms]`}>MindInsight</div>
         }
         <div className="flex flex-col flex-grow w-full h-[100%] overflow-y-auto no-scrollbar justify-end">
           {messagesEmpty() ? (
-              <div className={`font-light text-xl self-center pb-20 ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms] cursor-default`}>What&apos;s on your mind?</div>
+              <div className={`font-light text-xl self-center pb-20 cursor-default
+                ${isTitleVisible ? 'opacity-50 translate-y-0' : 'opacity-0 translate-y-20'} transition-all duration-[2000ms] delay-[1500ms]`}>What&apos;s on your mind?</div>
           ) : (
             <Messages messages={messages} />
           )}
